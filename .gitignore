@@ -1,0 +1,24 @@
+# Arquivos objeto e executáveis genéricos
+*.o
+*.out
+a.out
+
+# Executáveis das aulas
+Aula01/main
+Aula01/info
+Aula01/carro
+Aula01/ecu
+Aula01/aula01
+Aula02/painel
+Aula03/painel
+Aula04/menu
+Aula04/ecu_menu
+
+# Diretórios de compilação futuros
+build/
+bin/
+
+# Arquivos temporários de editores
+*.swp
+*.tmp
+*~
