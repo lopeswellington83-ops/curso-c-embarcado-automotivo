@@ -25,3 +25,6 @@ bin/
 
 # Arquivos de backup
 *.save
+
+# Executável do BordoC
+BordoC/bordoc
