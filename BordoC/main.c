@@ -2,16 +2,19 @@
 
 void exibir_menu(void);
 
-int valor_dentro_da_faixa(int valor,
+int valor_dentro_da_faixa(
+    int valor,
     int minimo,
-    int maximo);
+    int maximo
+);
 
 void exibir_painel(
     int rpm,
     int temperatura,
     int velocidade,
     int nivel_bateria,
-    int nivel_combustivel);
+    int nivel_combustivel
+);
 
 int simular_aceleracao(void);
 
@@ -29,74 +32,74 @@ int main(void)
 
     do
     {
-	exibir_menu();
-	printf("  Escolha uma opção: ");
-	scanf("%d", &opcao);
+        exibir_menu();
+        printf("  Escolha uma opção: ");
+        scanf("%d", &opcao);
 
         switch (opcao)
         {
             case 1:
-		exibir_painel(
-		    rpm,
-		    temperatura,
-		    velocidade,
-		    nivel_bateria,
-		    nivel_combustivel);
-		break;
+                exibir_painel(
+                    rpm,
+                    temperatura,
+                    velocidade,
+                    nivel_bateria,
+                    nivel_combustivel);
+                break;
 
             case 2:
                 printf("Digite o novo RPM: ");
                 scanf("%d", &rpm);
-		atualizacoes++;
+                atualizacoes++;
                 break;
 
             case 3:
                 printf("Digite a nova temperatura: ");
                 scanf("%d", &temperatura);
-		atualizacoes++;
+                atualizacoes++;
                 break;
 
             case 4:
                 printf("Digite a nova velocidade: ");
                 scanf("%d", &velocidade);
-		atualizacoes++;
+                atualizacoes++;
                 break;
 
             case 5:
                 printf("Digite a nova tensão da bateria: ");
                 scanf("%d", &nivel_bateria);
-		atualizacoes++;
+                atualizacoes++;
                 break;
 
             case 6:
                 printf("Digite o novo nível de combustível: ");
                 scanf("%d", &nivel_combustivel);
-		atualizacoes++;
+                atualizacoes++;
                 break;
 
-	    case 7:
-		printf("\nQuantidade de atualizações: %d\n", atualizacoes);
-	        break;
+            case 7:
+                printf("\nQuantidade de atualizações: %d\n", atualizacoes);
+                break;
 
-	    case 8:
-		rpm = simular_aceleracao();
-		atualizacoes++;
-		break;
+            case 8:
+                rpm = simular_aceleracao();
+                atualizacoes++;
+                break;
 
-	    case 9:
-		temperatura = simular_aquecimento();
-		atualizacoes++;
-		break;
+            case 9:
+                temperatura = simular_aquecimento();
+                atualizacoes++;
+                break;
 
             case 0:
-                printf("\nEncerrando a ECU virtual...\n");
+                printf("\nEncerrando o BordoC...\n");
                 break;
 
             default:
                 printf("\nOpção inválida.\n");
                 break;
 
-	}
+        }
 
     } while (opcao != 0);
 
@@ -136,98 +139,98 @@ void exibir_painel(
     int nivel_bateria,
     int nivel_combustivel)
 {
-	printf("\n========== PAINEL ==========\n");
+    printf("\n========== PAINEL ==========\n");
 
-	printf("RPM.................. %d\n", rpm);
-	if (!valor_dentro_da_faixa(rpm, 0, 7000))
-	{
-	    printf("Aviso: Medição do RPM Incorreta\n");
-	}
-        else if (rpm > 6000)
-        {
-             printf("Aviso: RPM próximo ao corte\n");
-        }
+    printf("RPM.................. %d\n", rpm);
+    if (!valor_dentro_da_faixa(rpm, 0, 7000))
+    {
+        printf("Aviso: Medição do RPM Incorreta\n");
+    }
+    else if (rpm > 6000)
+    {
+        printf("Aviso: RPM próximo ao corte\n");
+    }
 
-        printf("Temperatura.......... %d °C\n", temperatura);
-        if (!valor_dentro_da_faixa(temperatura, 0, 120))
-        {
-             printf("Aviso: Medição da Temperatura Incorreta\n");
-       	}
+    printf("Temperatura.......... %d °C\n", temperatura);
+    if (!valor_dentro_da_faixa(temperatura, 0, 120))
+    {
+        printf("Aviso: Medição da Temperatura Incorreta\n");
+    }
         else if (temperatura >= 110)
-        {
-             printf("Status térmico...... CRÍTICO\n"
-                    "Ventoinha .......... Ligada\n");
-        }
-        else if (temperatura >= 95)
-        {
-             printf("Status térmico...... ALERTA\n"
-		    "Ventoinha .......... Ligada\n");
-        }
-        else
-        {
-             printf("Status térmico...... NORMAL\n"
-                    "Ventoinha ........ Desigada\n");
-        }
+    {
+        printf("Status térmico...... CRÍTICO\n"
+                "Ventoinha .......... LIGADA\n");
+    }
+    else if (temperatura >= 95)
+    {
+        printf("Status térmico...... ALERTA\n"
+                "Ventoinha .......... LIGADA\n");
+    }
+    else
+    {
+        printf("Status térmico...... NORMAL\n"
+                "Ventoinha .......... DESLIGADA\n");
+    }
 
-        printf("Velocidade........... %d km/h\n", velocidade);
-        if (!valor_dentro_da_faixa(velocidade, 0, 170))
-	{
-             printf("Aviso: Medição da Velocidade Incorreta\n");
-	}
+    printf("Velocidade........... %d km/h\n", velocidade);
+    if (!valor_dentro_da_faixa(velocidade, 0, 170))
+    {
+        printf("Aviso: Medição da Velocidade Incorreta\n");
+    }
 
-        printf("Bateria.............. %d V\n", nivel_bateria);
-        if (!valor_dentro_da_faixa(nivel_bateria, 0, 14))
-	{
-             printf("Aviso: Medição da Tensão da Bateria Incorreta\n");
-	}
-        else if (nivel_bateria < 12)
-        {
-             printf("Aviso: Tensão da Bateria baixa\n");
-        }
+    printf("Bateria.............. %d V\n", nivel_bateria);
+    if (!valor_dentro_da_faixa(nivel_bateria, 0, 14))
+    {
+        printf("Aviso: Medição da Tensão da Bateria Incorreta\n");
+    }
+    else if (nivel_bateria < 12)
+    {
+        printf("Aviso: Tensão da Bateria baixa\n");
+    }
 
-        printf("Combustível.......... %d %%\n", nivel_combustivel);
-        if (!valor_dentro_da_faixa(nivel_combustivel, 0, 100))
-	{
-             printf("Aviso: Medição do Combustível Incorreta\n");
-	}
-        else if (nivel_combustivel <= 15)
-        {
-             printf("Aviso: Combustível na reserva\n");
-        }
+    printf("Combustível.......... %d %%\n", nivel_combustivel);
+    if (!valor_dentro_da_faixa(nivel_combustivel, 0, 100))
+    {
+        printf("Aviso: Medição do Combustível Incorreta\n");
+    }
+    else if (nivel_combustivel <= 15)
+    {
+        printf("Aviso: Combustível na reserva\n");
+    }
 
-        printf("============================\n");
+    printf("============================\n");
 }
 
 int simular_aceleracao(void)
 {
-	int rpm;
-    	printf("\n===== SIMULAÇÃO DE ACELERAÇÃO =====\n");
+    int rpm;
+    printf("\n===== SIMULAÇÃO DE ACELERAÇÃO =====\n");
 
- 	for (rpm = 1000; rpm <= 5000; rpm += 500)
-	{
-            printf("RPM: %d\n", rpm);
-	}
+    for (rpm = 1000; rpm <= 5000; rpm += 500)
+    {
+        printf("RPM: %d\n", rpm);
+    }
 
-	rpm = 850;
+    rpm = 850;
 
-	printf("Retorno à marcha lenta: %d RPM\n", rpm);
+    printf("Retorno à marcha lenta: %d RPM\n", rpm);
 
-	return rpm;
+    return rpm;
 }
 
 int simular_aquecimento(void)
 {
-	int temperatura = 70;
-	printf("\n===== SIMULAÇÃO DE AQUECIMENTO =====\n");
+    int temperatura = 70;
+    printf("\n===== SIMULAÇÃO DE AQUECIMENTO =====\n");
 
-	while (temperatura < 100)
-	{
-	    printf("Temperatura: %d °C\n", temperatura);
-	    temperatura += 5;
-	}
+    while (temperatura < 100)
+    {
+        printf("Temperatura: %d °C\n", temperatura);
+        temperatura += 5;
+    }
 
-	printf("Temperatura: %d °C\n", temperatura);
-	printf("Temperatura elevada. Ventoinha acionada.\n");
+    printf("Temperatura: %d °C\n", temperatura);
+    printf("Temperatura elevada. Ventoinha acionada.\n");
 
-	return temperatura;
+    return temperatura;
 }
