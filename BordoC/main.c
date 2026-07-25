@@ -19,7 +19,6 @@ int valor_dentro_da_faixa(
 );
 
 void exibir_painel(DadosVeiculo veiculo);
-
 int simular_aceleracao(void);
 int simular_aquecimento(void);
 
@@ -85,15 +84,13 @@ int main(void)
                 printf("\nQuantidade de atualizações: %d\n", atualizacoes);
                 break;
 
-            case 8:
-                veiculo.rpm =
-	    simular_aceleracao();
-                atualizacoes++;
-                break;
+	    case 8:
+		veiculo.rpm = simular_aceleracao();
+		atualizacoes++;
+		break;
 
             case 9:
-                veiculo.temperatura =
-	    simular_aquecimento();
+                veiculo.temperatura = simular_aquecimento();
                 atualizacoes++;
                 break;
 
@@ -165,20 +162,20 @@ void exibir_painel(DadosVeiculo
     {
         printf("Aviso: Medição da Temperatura Incorreta\n");
     }
-        else if (veiculo.temperatura >= 110)
+    else if (veiculo.temperatura >= 110)
     {
         printf("Status térmico...... CRÍTICO\n"
-                "Ventoinha .......... LIGADA\n");
+              "Ventoinha .......... LIGADA\n");
     }
     else if (veiculo.temperatura >= 95)
     {
         printf("Status térmico...... ALERTA\n"
-                "Ventoinha .......... LIGADA\n");
+               "Ventoinha .......... LIGADA\n");
     }
     else
     {
         printf("Status térmico...... NORMAL\n"
-                "Ventoinha .......... DESLIGADA\n");
+               "Ventoinha .......... DESLIGADA\n");
     }
 
     printf("Velocidade........... %d km/h\n", veiculo.velocidade);
@@ -219,24 +216,24 @@ void exibir_painel(DadosVeiculo
     {
         printf("Aviso: posição do acelerador inválida\n");
     }
-        printf("============================\n");
-    }
+    printf("============================\n");
+}
 
-    int simular_aceleracao(void)
-    {
+int simular_aceleracao(void)
+{
     int rpm;
     printf("\n===== SIMULAÇÃO DE ACELERAÇÃO =====\n");
 
     for (rpm = 1000; rpm <= 5000; rpm += 500)
     {
-        printf("RPM: %d\n", rpm);
-    }
+    printf("RPM: %d\n", rpm);
+}
 
-    rpm = 850;
+rpm = 850;
 
-    printf("Retorno à marcha lenta: %d RPM\n", rpm);
+printf("Retorno à marcha lenta: %d RPM\n", rpm);
 
-    return rpm;
+return rpm;
 }
 
 int simular_aquecimento(void)
