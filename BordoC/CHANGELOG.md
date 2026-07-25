@@ -2,7 +2,7 @@
 
 Este arquivo registra as principais alterações de cada versão do projeto.
 
-## [Não lançado]
+## [0.3.0] - 2026-07-25
 
 ### Adicionado
 
