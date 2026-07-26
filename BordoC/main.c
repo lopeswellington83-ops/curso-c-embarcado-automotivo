@@ -10,6 +10,8 @@ typedef struct
     int posicao_acelerador;
 } DadosVeiculo;
 
+void inicializar_veiculo(DadosVeiculo *veiculo);
+
 void exibir_menu(void);
 
 int valor_dentro_da_faixa(
@@ -18,9 +20,10 @@ int valor_dentro_da_faixa(
     int maximo
 );
 
-void exibir_painel(DadosVeiculo veiculo);
-int simular_aceleracao(void);
-int simular_aquecimento(void);
+void exibir_painel(const DadosVeiculo *veiculo);
+
+void simular_aceleracao(DadosVeiculo *veiculo);
+void simular_aquecimento(DadosVeiculo *veiculo);
 
 int main(void)
 {
@@ -28,15 +31,9 @@ int main(void)
     int opcao;
     int atualizacoes = 0;
 
-    DadosVeiculo veiculo =
-    {
-	.rpm = 850,
-	.temperatura = 85,
-	.velocidade = 0,
-	.nivel_bateria = 14,
-	.nivel_combustivel = 50,
-	.posicao_acelerador = 0
-    };
+    DadosVeiculo veiculo;
+
+    inicializar_veiculo(&veiculo);
 
     do
     {
@@ -47,7 +44,7 @@ int main(void)
         switch (opcao)
         {
             case 1:
-                exibir_painel(veiculo);
+                exibir_painel(&veiculo);
                 break;
 
             case 2:
@@ -85,12 +82,12 @@ int main(void)
                 break;
 
 	    case 8:
-		veiculo.rpm = simular_aceleracao();
+		simular_aceleracao(&veiculo);
 		atualizacoes++;
 		break;
 
             case 9:
-                veiculo.temperatura = simular_aquecimento();
+                simular_aquecimento(&veiculo);
                 atualizacoes++;
                 break;
 
@@ -99,6 +96,12 @@ int main(void)
 	        scanf("%d", &veiculo.posicao_acelerador);
 	        atualizacoes++;
 	        break;
+
+	    case 11:
+	        inicializar_veiculo(&veiculo);
+		atualizacoes++;
+		printf("\nDados do veículo restaurados.\n");
+		break;
 
             case 0:
                 printf("\nEncerrando o BordoC...\n");
@@ -128,6 +131,7 @@ void exibir_menu(void)
     printf("8 - Simular aceleração\n");
     printf("9 - Simular aquecimento\n");
     printf("10 - Alterar posição do acelerador\n");
+    printf("11 - Restaurar dados padrão\n");
     printf("0 - Encerrar\n\n");
     printf("============================\n\n");
 }
@@ -142,75 +146,80 @@ int valor_dentro_da_faixa(int valor, int minimo, int maximo)
     return 0;
 }
 
-void exibir_painel(DadosVeiculo
-    veiculo)
+void exibir_painel(const DadosVeiculo *veiculo)
 {
+    if (veiculo == NULL)
+    {
+	printf("\nErro: dados do veículo indisponíveis.\n");
+	return;
+    }
+
     printf("\n========== PAINEL ==========\n");
 
-    printf("RPM.................. %d\n", veiculo.rpm);
-    if (!valor_dentro_da_faixa(veiculo.rpm, 0, 7000))
+    printf("RPM.................. %d\n", veiculo->rpm);
+    if (!valor_dentro_da_faixa(veiculo->rpm, 0, 7000))
     {
         printf("Aviso: Medição do RPM Incorreta\n");
     }
-    else if (veiculo.rpm > 6000)
+    else if (veiculo->rpm > 6000)
     {
         printf("Aviso: RPM próximo ao corte\n");
     }
 
-    printf("Temperatura.......... %d °C\n", veiculo.temperatura);
-    if (!valor_dentro_da_faixa(veiculo.temperatura, 0, 120))
+    printf("Temperatura.......... %d °C\n", veiculo->temperatura);
+    if (!valor_dentro_da_faixa(veiculo->temperatura, 0, 120))
     {
         printf("Aviso: Medição da Temperatura Incorreta\n");
     }
-    else if (veiculo.temperatura >= 110)
+    else if (veiculo->temperatura >= 110)
     {
         printf("Status térmico...... CRÍTICO\n"
-              "Ventoinha .......... LIGADA\n");
+               "Ventoinha.......... LIGADA\n");
     }
-    else if (veiculo.temperatura >= 95)
+    else if (veiculo->temperatura >= 95)
     {
         printf("Status térmico...... ALERTA\n"
-               "Ventoinha .......... LIGADA\n");
+               "Ventoinha........... LIGADA\n");
     }
     else
     {
         printf("Status térmico...... NORMAL\n"
-               "Ventoinha .......... DESLIGADA\n");
+               "Ventoinha........... DESLIGADA\n");
     }
 
-    printf("Velocidade........... %d km/h\n", veiculo.velocidade);
-    if (!valor_dentro_da_faixa(veiculo.velocidade, 0, 170))
+    printf("Velocidade........... %d km/h\n", veiculo->velocidade);
+    if (!valor_dentro_da_faixa(veiculo->velocidade, 0, 170))
     {
         printf("Aviso: Medição da Velocidade Incorreta\n");
     }
 
-    printf("Bateria.............. %d V\n", veiculo.nivel_bateria);
-    if (!valor_dentro_da_faixa(veiculo.nivel_bateria, 0, 14))
+    printf("Bateria.............. %d V\n", veiculo->nivel_bateria);
+    if (!valor_dentro_da_faixa(veiculo->nivel_bateria, 0, 14))
     {
         printf("Aviso: Medição da Tensão da Bateria Incorreta\n");
     }
-    else if (veiculo.nivel_bateria < 12)
+    else if (veiculo->nivel_bateria < 12)
     {
         printf("Aviso: Tensão da Bateria baixa\n");
     }
 
-    printf("Combustível.......... %d %%\n", veiculo.nivel_combustivel);
-    if (!valor_dentro_da_faixa(veiculo.nivel_combustivel, 0, 100))
+    printf("Combustível.......... %d %%\n", veiculo->nivel_combustivel);
+    if (!valor_dentro_da_faixa(veiculo->nivel_combustivel, 0, 100))
     {
         printf("Aviso: Medição do Combustível Incorreta\n");
     }
-    else if (veiculo.nivel_combustivel <= 15)
+    else if (veiculo->nivel_combustivel <= 15)
     {
         printf("Aviso: Combustível na reserva\n");
     }
 
     printf(
         "Acelerador........... %d %%\n",
-        veiculo.posicao_acelerador
+        veiculo->posicao_acelerador
     );
 
     if (!valor_dentro_da_faixa(
-            veiculo.posicao_acelerador,
+            veiculo->posicao_acelerador,
             0,
             100))
     {
@@ -219,36 +228,64 @@ void exibir_painel(DadosVeiculo
     printf("============================\n");
 }
 
-int simular_aceleracao(void)
+void simular_aceleracao(DadosVeiculo *veiculo)
 {
-    int rpm;
-    printf("\n===== SIMULAÇÃO DE ACELERAÇÃO =====\n");
-
-    for (rpm = 1000; rpm <= 5000; rpm += 500)
+    if (veiculo == NULL)
     {
-    printf("RPM: %d\n", rpm);
-}
-
-rpm = 850;
-
-printf("Retorno à marcha lenta: %d RPM\n", rpm);
-
-return rpm;
-}
-
-int simular_aquecimento(void)
-{
-    int temperatura = 70;
-    printf("\n===== SIMULAÇÃO DE AQUECIMENTO =====\n");
-
-    while (temperatura < 100)
-    {
-        printf("Temperatura: %d °C\n", temperatura);
-        temperatura += 5;
+	return;
     }
 
-    printf("Temperatura: %d °C\n", temperatura);
-    printf("Temperatura elevada. Ventoinha acionada.\n");
+    printf("\n===== SIMULAÇÃO DE ACELERAÇÃO =====\n");
 
-    return temperatura;
+    for (veiculo->rpm = 1000;
+	 veiculo->rpm <= 5000;
+	 veiculo->rpm += 500)
+    {
+	printf("RPM: %d\n", veiculo->rpm);
+    }
+
+    veiculo->rpm = 850;
+
+    printf(
+	"Retorno à marcha lenta: %d RPM\n"
+	,veiculo->rpm);
+}
+
+void simular_aquecimento(DadosVeiculo *veiculo)
+{
+    if (veiculo == NULL)
+    {
+	return;
+    }
+
+    printf("\n===== SIMULAÇÃO DE AQUECIMENTO =====\n");
+
+    veiculo->temperatura = 70;
+
+    while (veiculo->temperatura < 100)
+    {
+        printf("Temperatura: %d °C\n",
+		veiculo->temperatura
+	);
+        veiculo->temperatura += 5;
+    }
+
+    printf("Temperatura: %d °C\n", veiculo->temperatura);
+    printf("Status térmico...... ALERTA\n"
+           "Ventoinha........... LIGADA\n");
+}
+
+void inicializar_veiculo(DadosVeiculo *veiculo)
+{
+    if (veiculo == NULL)
+    {
+	return;
+    }
+
+    veiculo->rpm = 850;
+    veiculo->temperatura = 85;
+    veiculo->velocidade = 0;
+    veiculo->nivel_bateria = 14;
+    veiculo->nivel_combustivel = 50;
+    veiculo->posicao_acelerador = 0;
 }
