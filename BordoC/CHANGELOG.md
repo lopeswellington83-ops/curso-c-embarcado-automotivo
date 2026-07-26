@@ -2,6 +2,20 @@
 
 Este arquivo registra as principais alterações de cada versão do projeto.
 
+## [Não lançado]
+
+### Adicionado
+
+- Função para inicializar os dados do veículo.
+- Opção para restaurar os valores padrão.
+- Verificação de ponteiros nulos.
+
+### Alterado
+
+- O painel passou a receber um ponteiro constante para `DadosVeiculo`.
+- As simulações passaram a modificar diretamente a estrutura do veículo.
+- As funções de simulação deixaram de retornar valores inteiros.
+
 ## [0.3.0] - 2026-07-25
 
 ### Adicionado
