@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+/* Estruturas de Dados */
+
 typedef struct
 {
     int rpm;
@@ -9,6 +11,8 @@ typedef struct
     int nivel_combustivel;
     int posicao_acelerador;
 } DadosVeiculo;
+
+/* Prototipos */
 
 void inicializar_veiculo(DadosVeiculo *veiculo);
 
@@ -25,6 +29,15 @@ void exibir_painel(const DadosVeiculo *veiculo);
 void simular_aceleracao(DadosVeiculo *veiculo);
 void simular_aquecimento(DadosVeiculo *veiculo);
 
+int ler_inteiro_na_faixa(
+    const char *mensagem,
+    int minimo,
+    int maximo,
+    int *destino
+);
+
+/* Funcao principal */
+
 int main(void)
 {
 
@@ -37,9 +50,17 @@ int main(void)
 
     do
     {
-        exibir_menu();
-        printf("  Escolha uma opção: ");
-        scanf("%d", &opcao);
+	exibir_menu();
+
+	if (!ler_inteiro_na_faixa(
+	        "  Escolha uma opção: ",
+	        0,
+	        11,
+	        &opcao))
+	{
+	    printf("\nEntrada encerrada.\n");
+	    break;
+	}
 
         switch (opcao)
         {
@@ -47,35 +68,60 @@ int main(void)
                 exibir_painel(&veiculo);
                 break;
 
-            case 2:
-                printf("Digite o novo RPM: ");
-                scanf("%d", &veiculo.rpm);
-                atualizacoes++;
-                break;
+	    case 2:
+	        if (ler_inteiro_na_faixa(
+	            "Digite o novo RPM: ",
+	            0,
+	            7000,
+	            &veiculo.rpm))
+	        {
+	            atualizacoes++;
+		}
+		break;
 
-            case 3:
-                printf("Digite a nova temperatura: ");
-                scanf("%d", &veiculo.temperatura);
-                atualizacoes++;
-                break;
+	    case 3:
+	        if (ler_inteiro_na_faixa(
+	            "Digite a nova temperatura: ",
+	            0,
+	            120,
+	            &veiculo.temperatura))
+	        {
+	            atualizacoes++;
+		}
+		break;
 
-            case 4:
-                printf("Digite a nova velocidade: ");
-                scanf("%d", &veiculo.velocidade);
-                atualizacoes++;
-                break;
+	    case 4:
+	        if (ler_inteiro_na_faixa(
+	            "Digite a nova velocidade: ",
+	            0,
+	            170,
+	            &veiculo.velocidade))
+	        {
+	            atualizacoes++;
+		}
+		break;
 
-            case 5:
-                printf("Digite a nova tensão da bateria: ");
-                scanf("%d", &veiculo.nivel_bateria);
-                atualizacoes++;
-                break;
+	    case 5:
+	        if (ler_inteiro_na_faixa(
+	            "Digite a nova tensão da bateria: ",
+	            0,
+	            14,
+	            &veiculo.nivel_bateria))
+	        {
+	            atualizacoes++;
+		}
+		break;
 
-            case 6:
-                printf("Digite o novo nível de combustível: ");
-                scanf("%d", &veiculo.nivel_combustivel);
-                atualizacoes++;
-                break;
+	    case 6:
+	        if (ler_inteiro_na_faixa(
+	            "Digite o novo nível de combustível: ",
+	            0,
+		    100,
+	            &veiculo.nivel_combustivel))
+	        {
+	            atualizacoes++;
+		}
+		break;
 
             case 7:
                 printf("\nQuantidade de atualizações: %d\n", atualizacoes);
@@ -92,10 +138,15 @@ int main(void)
                 break;
 
 	    case 10:
-		printf("Digite a posição do acelerador (0-100%%): ");
-	        scanf("%d", &veiculo.posicao_acelerador);
-	        atualizacoes++;
-	        break;
+	        if (ler_inteiro_na_faixa(
+	           "Digite a posição do acelerador (0-100%): ",
+	            0,
+                    100,
+	            &veiculo.posicao_acelerador))
+	        {
+	            atualizacoes++;
+		}
+		break;
 
 	    case 11:
 	        inicializar_veiculo(&veiculo);
@@ -109,7 +160,7 @@ int main(void)
 
             default:
                 printf("\nOpção inválida.\n");
-                break;
+		break;
 
         }
 
@@ -174,7 +225,7 @@ void exibir_painel(const DadosVeiculo *veiculo)
     else if (veiculo->temperatura >= 110)
     {
         printf("Status térmico...... CRÍTICO\n"
-               "Ventoinha.......... LIGADA\n");
+               "Ventoinha........... LIGADA\n");
     }
     else if (veiculo->temperatura >= 95)
     {
@@ -247,8 +298,8 @@ void simular_aceleracao(DadosVeiculo *veiculo)
     veiculo->rpm = 850;
 
     printf(
-	"Retorno à marcha lenta: %d RPM\n"
-	,veiculo->rpm);
+	"Retorno à marcha lenta: %d RPM\n",
+	veiculo->rpm);
 }
 
 void simular_aquecimento(DadosVeiculo *veiculo)
@@ -265,8 +316,7 @@ void simular_aquecimento(DadosVeiculo *veiculo)
     while (veiculo->temperatura < 100)
     {
         printf("Temperatura: %d °C\n",
-		veiculo->temperatura
-	);
+	    veiculo->temperatura);
         veiculo->temperatura += 5;
     }
 
@@ -288,4 +338,58 @@ void inicializar_veiculo(DadosVeiculo *veiculo)
     veiculo->nivel_bateria = 14;
     veiculo->nivel_combustivel = 50;
     veiculo->posicao_acelerador = 0;
+}
+
+int ler_inteiro_na_faixa(
+    const char *mensagem,
+    int minimo,
+    int maximo,
+    int *destino)
+{
+    char linha[100];
+    char caractere_extra;
+    int valor;
+
+    if (mensagem == NULL || destino == NULL)
+    {
+        return 0;
+    }
+
+    while (1)
+    {
+        printf("%s", mensagem);
+
+        if (fgets(linha, sizeof linha, stdin) == NULL)
+        {
+            return 0;
+        }
+
+        if (sscanf(
+                linha,
+                " %d %c",
+                &valor,
+                &caractere_extra) != 1)
+        {
+            printf(
+                "Entrada inválida. Digite apenas um número inteiro.\n"
+            );
+
+            continue;
+        }
+
+        if (!valor_dentro_da_faixa(valor, minimo, maximo))
+        {
+            printf(
+                "Valor fora da faixa permitida: %d a %d.\n",
+                minimo,
+                maximo
+            );
+
+            continue;
+        }
+
+        *destino = valor;
+
+        return 1;
+    }
 }
