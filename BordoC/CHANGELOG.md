@@ -4,6 +4,29 @@ Este arquivo registra as principais alterações de cada versão do projeto.
 
 ## [Não lançado]
 
+# [0.5.0] - 2026-08-01
+
+### Adicionado
+
+- Função para leitura segura de números inteiros.
+- Validação de formato das entradas.
+- Validação de faixa antes de atualizar os dados do veículo.
+- Detecção de caracteres adicionais em entradas numéricas.
+
+### Alterado
+
+- As entradas deixaram de utilizar `scanf()` diretamente.
+- Valores inválidos não são mais gravados em `DadosVeiculo`.
+- O contador é incrementado somente após uma atualização válida.
+- O menu passou a aceitar somente opções entre 0 e 11.
+
+### Corrigido
+
+- Tratamento de entradas com letras ou conteúdo não numérico.
+- Prevenção de valores inválidos persistentes nos campos do veículo.
+
+## [0.4.0]
+
 ### Adicionado
 
 - Função para inicializar os dados do veículo.
