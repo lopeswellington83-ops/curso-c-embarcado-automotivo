@@ -4,6 +4,22 @@ Este arquivo registra as principais alterações de cada versão do projeto.
 
 ## [Não lançado]
 
+# [0.6.0] - 2026-08-02
+
+### Adicionado
+
+- Cabeçalho público `bordoc.h`.
+- Arquivo de implementação `bordoc.c`.
+- Proteção contra inclusão múltipla no cabeçalho.
+
+### Alterado
+
+- O código deixou de estar concentrado apenas em `main.c`.
+- A estrutura `DadosVeiculo` passou a ser declarada no cabeçalho.
+- As funções do BordoC foram movidas para um módulo separado.
+- A função de validação passou a ser privada ao módulo com `static`.
+- A compilação passou a utilizar múltiplos arquivos-fonte.
+
 # [0.5.0] - 2026-08-01
 
 ### Adicionado
