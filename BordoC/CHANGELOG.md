@@ -2,7 +2,19 @@
 
 Este arquivo registra as principais alterações de cada versão do projeto.
 
-## [Não lançado]
+## [Não Lançado]
+
+# [0.7.0] - 2026-08-02
+
+### Adicionado
+
+- Makefile para automatizar a compilação.
+- Alvos para compilar, executar e limpar o projeto.
+- Compilação incremental por arquivos-objeto.
+
+### Alterado
+
+- A compilação manual foi substituída por comandos do Make.## [Não lançado]
 
 # [0.6.0] - 2026-08-02
 
