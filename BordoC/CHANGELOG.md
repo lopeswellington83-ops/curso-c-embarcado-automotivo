@@ -4,6 +4,22 @@ Este arquivo registra as principais alterações de cada versão do projeto.
 
 ## [Não Lançado]
 
+# [0.8.0] - 2026-08-13
+
+### Adicionado
+
+- Constantes simbólicas para limites dos dados do veículo.
+- Constantes para valores padrão do BordoC.
+- Constantes para parâmetros das simulações.
+- Enumeração `OpcaoMenu` para representar as opções do menu.
+
+### Alterado
+
+- Números mágicos foram substituídos por nomes descritivos.
+- O menu e o `switch` passaram a utilizar valores da enumeração.
+- Validações e inicializações passaram a utilizar constantes compartilhadas.
+- As simulações passaram a utilizar parâmetros simbólicos.
+
 # [0.7.0] - 2026-08-02
 
 ### Adicionado

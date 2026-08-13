@@ -17,117 +17,125 @@ int main(void)
 
 	if (!ler_inteiro_na_faixa(
 	        "  Escolha uma opção: ",
-	        0,
-	        11,
+	        OPCAO_ENCERRAR,
+		OPCAO_RESTAURAR_DADOS,
 	        &opcao))
 	{
 	    printf("\nEntrada encerrada.\n");
 	    break;
 	}
 
-        switch (opcao)
-        {
-            case 1:
-                exibir_painel(&veiculo);
-                break;
+	switch (opcao)
+	{
+	    case OPCAO_EXIBIR_PAINEL:
+	        exibir_painel(&veiculo);
+	        break;
 
-	    case 2:
-	        if (ler_inteiro_na_faixa(
-	            "Digite o novo RPM: ",
-	            0,
-	            7000,
-	            &veiculo.rpm))
-	        {
-	            atualizacoes++;
+	    case OPCAO_ALTERAR_RPM:
+	        /* leitura do RPM */
+		if (ler_inteiro_na_faixa(
+		    "Digite o novo RPM: ",
+		    RPM_MINIMO,
+		    RPM_MAXIMO,
+		    &veiculo.rpm))
+		{
+		    atualizacoes++;
 		}
-		break;
+	        break;
 
-	    case 3:
-	        if (ler_inteiro_na_faixa(
-	            "Digite a nova temperatura: ",
-	            0,
-	            120,
-	            &veiculo.temperatura))
-	        {
-	            atualizacoes++;
+	    case OPCAO_ALTERAR_TEMPERATURA:
+	        /* leitura da temperatura */
+		if (ler_inteiro_na_faixa(
+		    "Digite a nova temperatura: ",
+		    TEMPERATURA_MINIMA,
+		    TEMPERATURA_MAXIMA,
+		    &veiculo.temperatura))
+		{
+		    atualizacoes++;
 		}
-		break;
+	        break;
 
-	    case 4:
-	        if (ler_inteiro_na_faixa(
-	            "Digite a nova velocidade: ",
-	            0,
-	            170,
-	            &veiculo.velocidade))
-	        {
-	            atualizacoes++;
+	    case OPCAO_ALTERAR_VELOCIDADE:
+	        /* leitura da velocidade */
+		if (ler_inteiro_na_faixa(
+		    "Digite a nova velocidade: ",
+		    VELOCIDADE_MINIMA,
+		    VELOCIDADE_MAXIMA,
+		    &veiculo.velocidade))
+		{
+		    atualizacoes++;
 		}
-		break;
+	        break;
 
-	    case 5:
-	        if (ler_inteiro_na_faixa(
-	            "Digite a nova tensão da bateria: ",
-	            0,
-	            14,
-	            &veiculo.nivel_bateria))
-	        {
-	            atualizacoes++;
+	    case OPCAO_ALTERAR_BATERIA:
+	        /* leitura da bateria */
+		if (ler_inteiro_na_faixa(
+		    "Digite a nova tensão da bateria: ",
+		    BATERIA_MINIMA,
+		    BATERIA_MAXIMA,
+		    &veiculo.nivel_bateria))
+		{
+		    atualizacoes++;
 		}
-		break;
+	        break;
 
-	    case 6:
-	        if (ler_inteiro_na_faixa(
-	            "Digite o novo nível de combustível: ",
-	            0,
-		    100,
-	            &veiculo.nivel_combustivel))
-	        {
-	            atualizacoes++;
+	    case OPCAO_ALTERAR_COMBUSTIVEL:
+	        /* leitura do combustível */
+		if (ler_inteiro_na_faixa(
+		    "Digite o novo nível de combustível: ",
+		    COMBUSTIVEL_MINIMO,
+		    COMBUSTIVEL_MAXIMO,
+		    &veiculo.nivel_combustivel))
+		{
+		    atualizacoes++;
 		}
-		break;
+	        break;
 
-            case 7:
-                printf("\nQuantidade de atualizações: %d\n", atualizacoes);
-                break;
+	    case OPCAO_EXIBIR_ATUALIZACOES:
+	        printf(
+	            "\nQuantidade de atualizações: %d\n",
+	            atualizacoes
+	        );
+	        break;
 
-	    case 8:
-		simular_aceleracao(&veiculo);
-		atualizacoes++;
-		break;
+	    case OPCAO_SIMULAR_ACELERACAO:
+	        simular_aceleracao(&veiculo);
+	        atualizacoes++;
+	        break;
 
-            case 9:
-                simular_aquecimento(&veiculo);
-                atualizacoes++;
-                break;
+	    case OPCAO_SIMULAR_AQUECIMENTO:
+	        simular_aquecimento(&veiculo);
+	        atualizacoes++;
+	        break;
 
-	    case 10:
-	        if (ler_inteiro_na_faixa(
-	           "Digite a posição do acelerador (0-100%): ",
-	            0,
-                    100,
-	            &veiculo.posicao_acelerador))
-	        {
-	            atualizacoes++;
+	    case OPCAO_ALTERAR_ACELERADOR:
+	        /* leitura do acelerador */
+		if (ler_inteiro_na_faixa(
+		    "Digite a posição do acelerador (0-100%): ",
+		    ACELERADOR_MINIMO,
+		    ACELERADOR_MAXIMO,
+		    &veiculo.posicao_acelerador))
+		{
+		    atualizacoes++;
 		}
-		break;
+	        break;
 
-	    case 11:
+	    case OPCAO_RESTAURAR_DADOS:
 	        inicializar_veiculo(&veiculo);
-		atualizacoes++;
-		printf("\nDados do veículo restaurados.\n");
-		break;
+	        atualizacoes++;
+	        printf("\nDados do veículo restaurados.\n");
+	        break;
 
-            case 0:
-                printf("\nEncerrando o BordoC...\n");
-                break;
+	    case OPCAO_ENCERRAR:
+	        printf("\nEncerrando o BordoC...\n");
+	        break;
 
-            default:
-                printf("\nOpção inválida.\n");
-		break;
+	    default:
+	        printf("\nOpção inválida.\n");
+	        break;
+	}
 
-        }
-
-    } while (opcao != 0);
+    } while (opcao != OPCAO_ENCERRAR);
 
     return 0;
 }
