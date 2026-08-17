@@ -1,14 +1,6 @@
 #include <stdio.h>
 #include "bordoc.h"
 
-#define RPM_SIMULACAO_INICIAL 1000
-#define RPM_SIMULACAO_FINAL 5000
-#define RPM_SIMULACAO_PASSO 500
-
-#define TEMPERATURA_SIMULACAO_INICIAL 70
-#define TEMPERATURA_SIMULACAO_FINAL 100
-#define TEMPERATURA_SIMULACAO_PASSO 5
-
 static int valor_dentro_da_faixa(
     int valor,
     int minimo,
@@ -156,7 +148,7 @@ void simular_aceleracao(DadosVeiculo *veiculo)
     {
 	printf("RPM: %d\n", veiculo->rpm);
     }
-    veiculo->rpm = 850;
+    veiculo->rpm = RPM_PADRAO;
     printf(
 	"Retorno à marcha lenta: %d RPM\n",
 	veiculo->rpm);
