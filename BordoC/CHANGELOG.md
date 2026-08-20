@@ -30,7 +30,7 @@ Este arquivo registra as principais alterações de cada versão do projeto.
 
 ### Alterado
 
-- A compilação manual foi substituída por comandos do Make.## [Não lançado]
+- A compilação manual foi substituída por comandos do Make.
 
 # [0.6.0] - 2026-08-02
 
