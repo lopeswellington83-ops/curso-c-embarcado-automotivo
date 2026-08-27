@@ -3,13 +3,14 @@
 
 int main(void)
 {
-
     int opcao;
     int atualizacoes = 0;
 
     DadosVeiculo veiculo;
-
     inicializar_veiculo(&veiculo);
+
+    DadosViagem viagem;
+    inicializar_viagem(&viagem);
 
     do
     {
@@ -18,7 +19,7 @@ int main(void)
 	if (!ler_inteiro_na_faixa(
 	        "  Escolha uma opção: ",
 	        OPCAO_ENCERRAR,
-		OPCAO_RESTAURAR_DADOS,
+		OPCAO_EXIBIR_VIAGEM,
 	        &opcao))
 	{
 	    printf("\nEntrada encerrada.\n");
@@ -126,6 +127,10 @@ int main(void)
 	        printf("\nDados do veículo restaurados.\n");
 	        break;
 
+	    case OPCAO_EXIBIR_VIAGEM:
+		exibir_viagem(&viagem);
+		break;
+
 	    case OPCAO_ENCERRAR:
 	        printf("\nEncerrando o BordoC...\n");
 	        break;
@@ -133,6 +138,12 @@ int main(void)
 	    default:
 	        printf("\nOpção inválida.\n");
 	        break;
+	}
+
+	if (opcao != OPCAO_ENCERRAR)
+	{
+	    atualizar_maximos(&veiculo, &viagem);
+	    atualizar_tempo_viagem(&viagem);
 	}
 
     } while (opcao != OPCAO_ENCERRAR);
