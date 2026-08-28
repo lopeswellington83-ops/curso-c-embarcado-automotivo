@@ -33,6 +33,46 @@ void inicializar_veiculo(DadosVeiculo *veiculo)
     veiculo->posicao_acelerador = ACELERADOR_PADRAO;
 }
 
+void inicializar_viagem(DadosViagem *viagem)
+{
+    if (viagem == NULL)
+    {
+        return;
+    }
+
+    viagem->tempo_segundos = 0;
+    viagem->distancia_metros = 0;
+    viagem->velocidade_maxima = 0;
+    viagem->rpm_maximo = 0;
+}
+
+void atualizar_tempo_viagem(DadosViagem *viagem)
+{
+    if (viagem == NULL)
+    {
+        return;
+    }
+
+    viagem->tempo_segundos++;
+}
+
+void atualizar_maximos(
+    const DadosVeiculo *veiculo,
+    DadosViagem *viagem)
+{
+    if (veiculo == NULL || viagem == NULL)
+    {
+	return;
+    }
+    if (veiculo->rpm > viagem->rpm_maximo)
+    {
+	viagem->rpm_maximo = veiculo->rpm;
+    }
+    if (veiculo->velocidade > viagem->velocidade_maxima)
+    {
+	viagem->velocidade_maxima = veiculo->velocidade;
+    }
+}
 
 void exibir_menu(void)
 {
@@ -48,6 +88,7 @@ void exibir_menu(void)
     printf("%d - Simular aquecimento\n", OPCAO_SIMULAR_AQUECIMENTO);
     printf("%d - Alterar posição do acelerador\n", OPCAO_ALTERAR_ACELERADOR);
     printf("%d - Restaurar dados padrão\n", OPCAO_RESTAURAR_DADOS);
+    printf("%d - Computador de Viagem\n", OPCAO_EXIBIR_VIAGEM);
     printf("%d - Encerrar\n\n", OPCAO_ENCERRAR);
     printf("============================\n\n");
 }
@@ -231,3 +272,21 @@ int ler_inteiro_na_faixa(
     }
 }
 
+void exibir_viagem(const DadosViagem *viagem)
+{
+    if (viagem == NULL)
+    {
+	printf("\nErro: Dados da viagem indisponíveis.\n");
+	return;
+    }
+    printf("\n======= COMPUTADOR DE VIAGEM =======\n");
+    printf("Tempo................ %lus\n",
+	viagem->tempo_segundos);
+    printf("Distância............ %um\n",
+	viagem->distancia_metros);
+    printf("Velocidade Máxima.... %d km/h\n",
+	viagem->velocidade_maxima);
+    printf("RPM máximo........... %d\n",
+	viagem->rpm_maximo);
+    printf("======================================\n");
+}

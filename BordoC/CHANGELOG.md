@@ -4,6 +4,22 @@ Este arquivo registra as principais alterações de cada versão do projeto.
 
 ## [Não Lançado]
 
+# 2026-08-26
+
+### Adicionado
+
+- Estrutura `DadosViagem` para armazenar informações acumuladas da viagem.
+- Registro de tempo simulado da viagem.
+- Registro de velocidade máxima.
+- Registro de RPM máximo.
+- Opção de computador de viagem no menu.
+- Funções para inicialização, atualização e exibição dos dados da viagem.
+
+### Alterado
+
+- O BordoC passou a separar dados instantâneos do veículo de dados históricos da viagem.
+- O ciclo principal passou a atualizar os dados da viagem.
+
 # [0.8.0] - 2026-08-13
 
 ### Adicionado

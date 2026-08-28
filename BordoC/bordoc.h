@@ -56,7 +56,8 @@ typedef enum
     OPCAO_SIMULAR_ACELERACAO = 8,
     OPCAO_SIMULAR_AQUECIMENTO = 9,
     OPCAO_ALTERAR_ACELERADOR = 10,
-    OPCAO_RESTAURAR_DADOS = 11
+    OPCAO_RESTAURAR_DADOS = 11,
+    OPCAO_EXIBIR_VIAGEM = 12
 } OpcaoMenu;
 
 /* Estruturas */
@@ -70,6 +71,14 @@ typedef struct
     int nivel_combustivel;
     int posicao_acelerador;
 } DadosVeiculo;
+
+typedef struct
+{
+    unsigned long tempo_segundos;
+    unsigned int distancia_metros;
+    int velocidade_maxima;
+    int rpm_maximo;
+} DadosViagem;
 
 /* Prototipos */
 
@@ -89,5 +98,16 @@ int ler_inteiro_na_faixa(
     int maximo,
     int *destino
 );
+
+void inicializar_viagem(DadosViagem *viagem);
+
+void atualizar_tempo_viagem(DadosViagem *viagem);
+
+void atualizar_maximos(
+    const DadosVeiculo *veiculo,
+    DadosViagem *viagem
+);
+
+void exibir_viagem(const DadosViagem *viagem);
 
 #endif
