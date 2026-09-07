@@ -143,6 +143,7 @@ int main(void)
 	if (opcao != OPCAO_ENCERRAR)
 	{
 	    atualizar_maximos(&veiculo, &viagem);
+	    atualizar_distancia(&veiculo, &viagem);
 	    atualizar_tempo_viagem(&viagem);
 	}
 

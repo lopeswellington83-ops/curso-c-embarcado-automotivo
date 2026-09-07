@@ -2,9 +2,27 @@
 
 Este arquivo registra as principais alterações de cada versão do projeto.
 
-## [Não Lançado]
+## [0.10.0] - 2026-09-07
 
-# 2026-08-26
+### Adicionado
+
+- Cálculo da distância percorrida com base na velocidade do veículo.
+- Cálculo da velocidade média da viagem.
+- Uso de `double` para representar a distância com valores fracionários.
+
+### Alterado
+
+- O campo `distancia_metros` de `DadosViagem` passou a utilizar `double`.
+- O computador de viagem passou a exibir a distância com duas casas decimais.
+- O ciclo de atualização da viagem passou a acumular a distância percorrida.
+
+### Técnico
+
+- Conversão de velocidade de km/h para m/s.
+- Uso de conversão explícita de tipos em cálculos de ponto flutuante.
+- Proteção contra divisão por zero no cálculo da velocidade média.
+
+## [0.9.0] - 2026-08-27
 
 ### Adicionado
 
@@ -20,7 +38,7 @@ Este arquivo registra as principais alterações de cada versão do projeto.
 - O BordoC passou a separar dados instantâneos do veículo de dados históricos da viagem.
 - O ciclo principal passou a atualizar os dados da viagem.
 
-# [0.8.0] - 2026-08-13
+## [0.8.0] - 2026-08-13
 
 ### Adicionado
 
@@ -36,7 +54,7 @@ Este arquivo registra as principais alterações de cada versão do projeto.
 - Validações e inicializações passaram a utilizar constantes compartilhadas.
 - As simulações passaram a utilizar parâmetros simbólicos.
 
-# [0.7.0] - 2026-08-02
+## [0.7.0] - 2026-08-02
 
 ### Adicionado
 
@@ -48,7 +66,7 @@ Este arquivo registra as principais alterações de cada versão do projeto.
 
 - A compilação manual foi substituída por comandos do Make.
 
-# [0.6.0] - 2026-08-02
+## [0.6.0] - 2026-08-02
 
 ### Adicionado
 
@@ -64,7 +82,7 @@ Este arquivo registra as principais alterações de cada versão do projeto.
 - A função de validação passou a ser privada ao módulo com `static`.
 - A compilação passou a utilizar múltiplos arquivos-fonte.
 
-# [0.5.0] - 2026-08-01
+## [0.5.0] - 2026-08-01
 
 ### Adicionado
 
