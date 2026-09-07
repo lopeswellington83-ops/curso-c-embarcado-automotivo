@@ -41,7 +41,7 @@ void inicializar_viagem(DadosViagem *viagem)
     }
 
     viagem->tempo_segundos = 0;
-    viagem->distancia_metros = 0;
+    viagem->distancia_metros = 0.0;
     viagem->velocidade_maxima = 0;
     viagem->rpm_maximo = 0;
 }
@@ -280,13 +280,41 @@ void exibir_viagem(const DadosViagem *viagem)
 	return;
     }
     printf("\n======= COMPUTADOR DE VIAGEM =======\n");
-    printf("Tempo................ %lus\n",
+    printf("Tempo................ %lu s\n",
 	viagem->tempo_segundos);
-    printf("Distância............ %um\n",
+    printf("Distância............ %.2f m\n",
 	viagem->distancia_metros);
+    printf("Velocidade média..... %.2f km/h\n",
+        calcular_velocidade_media(viagem));
     printf("Velocidade Máxima.... %d km/h\n",
 	viagem->velocidade_maxima);
     printf("RPM máximo........... %d\n",
 	viagem->rpm_maximo);
     printf("======================================\n");
+}
+
+void atualizar_distancia(
+    const DadosVeiculo *veiculo,
+    DadosViagem *viagem)
+{
+    if (veiculo == NULL || viagem == NULL)
+    {
+        return;
+    }
+
+    viagem->distancia_metros +=
+        (double)veiculo->velocidade / 3.6;
+}
+
+double calcular_velocidade_media(
+    const DadosViagem *viagem)
+{
+    if (viagem == NULL || viagem->tempo_segundos == 0)
+    {
+        return 0.0;
+    }
+
+    return
+        (viagem->distancia_metros /
+         (double)viagem->tempo_segundos) * 3.6;
 }

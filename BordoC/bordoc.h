@@ -75,7 +75,7 @@ typedef struct
 typedef struct
 {
     unsigned long tempo_segundos;
-    unsigned int distancia_metros;
+    double distancia_metros;
     int velocidade_maxima;
     int rpm_maximo;
 } DadosViagem;
@@ -109,5 +109,14 @@ void atualizar_maximos(
 );
 
 void exibir_viagem(const DadosViagem *viagem);
+
+void atualizar_distancia(
+    const DadosVeiculo *veiculo,
+    DadosViagem *viagem
+);
+
+double calcular_velocidade_media(
+    const DadosViagem *viagem
+);
 
 #endif
